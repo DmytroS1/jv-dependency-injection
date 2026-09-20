@@ -1,13 +1,13 @@
 package mate.academy.lib;
 
+import java.lang.reflect.Field;
+import java.util.Map;
 import mate.academy.service.FileReaderService;
 import mate.academy.service.ProductParser;
 import mate.academy.service.ProductService;
 import mate.academy.service.impl.FileReaderServiceImpl;
 import mate.academy.service.impl.ProductParserImpl;
 import mate.academy.service.impl.ProductServiceImpl;
-import java.lang.reflect.Field;
-import java.util.Map;
 
 public class Injector {
     private static final Injector injector = new Injector();
@@ -20,7 +20,7 @@ public class Injector {
         return injector;
     }
 
-    public Object getInstance(Class<?> interfaceClazz) throws NoSuchMethodException {
+    public Object getInstance(Class<?> interfaceClazz) {
         Class<?> implClass = implementations.getOrDefault(interfaceClazz, interfaceClazz);
         if (!implClass.isAnnotationPresent(Component.class)) {
             throw new RuntimeException("Class " + implClass.getName()
