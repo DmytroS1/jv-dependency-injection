@@ -21,7 +21,10 @@ public class Injector {
     }
 
     public Object getInstance(Class<?> interfaceClazz) {
-        Class<?> implClass = implementations.getOrDefault(interfaceClazz, interfaceClazz);
+        Class<?> implClass = interfaceClazz;
+        if (interfaceClazz.isInterface()) {
+            implClass = implementations.get(interfaceClazz);
+        }
         if (!implClass.isAnnotationPresent(Component.class)) {
             throw new RuntimeException("Class " + implClass.getName()
                     + " doesn't have @Component annotation");
